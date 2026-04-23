@@ -9,7 +9,7 @@ export function AboutSnippet() {
     <section className="py-24 border-t border-[#ddd] dark:border-[#222]">
       <div className="max-w-7xl mx-auto px-6">
         <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-12">
-          .about
+          About
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

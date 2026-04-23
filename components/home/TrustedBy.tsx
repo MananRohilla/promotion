@@ -7,7 +7,7 @@ export function TrustedBy() {
     <section className="py-20 border-b border-[#ddd] dark:border-[#222]">
       <div className="max-w-7xl mx-auto px-6 mb-10">
         <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium">
-          .trusted by
+          Trusted by
         </p>
       </div>
 

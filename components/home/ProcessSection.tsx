@@ -35,7 +35,7 @@ export function ProcessSection() {
     <section className="py-24">
       <div className="max-w-7xl mx-auto px-6">
         <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-16">
-          .how we work
+          How we work
         </p>
 
         {/* Desktop: horizontal */}
