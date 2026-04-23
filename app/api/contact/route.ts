@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 
 const RECIPIENTS = ['promotion.frames@gmail.com', 'cabiverse.india@gmail.com']
 
@@ -10,27 +10,26 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
   }
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASS,
-    },
-  })
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY)
 
-  await transporter.sendMail({
-    from: `"ProMotion Website" <${process.env.GMAIL_USER}>`,
-    to: RECIPIENTS.join(', '),
-    replyTo: email,
-    subject: `New enquiry from ${name}`,
-    html: `
-      <h2>New Contact Form Submission</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-      <p><strong>Message:</strong></p>
-      <p style="white-space:pre-wrap">${message}</p>
-    `,
-  })
+    await resend.emails.send({
+      from: 'ProMotion Website <onboarding@resend.dev>',
+      to: RECIPIENTS,
+      reply_to: email,
+      subject: `New enquiry from ${name}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+        <p><strong>Message:</strong></p>
+        <p style="white-space:pre-wrap">${message}</p>
+      `,
+    })
 
-  return NextResponse.json({ ok: true })
+    return NextResponse.json({ ok: true })
+  } catch (err) {
+    console.error('[contact] resend failed:', err)
+    return NextResponse.json({ error: 'Mail failed' }, { status: 500 })
+  }
 }
