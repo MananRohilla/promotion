@@ -35,11 +35,11 @@ export default function ContactPage() {
 
             <div className="flex flex-col gap-4 mb-12">
               <a
-                href="mailto:contact@promotionmedia.in"
+                href="mailto:promotion.frames@gmail.com"
                 className="flex items-center gap-3 text-sm text-[#555] dark:text-[#888] hover:text-[#ff3c00] transition-colors group"
               >
                 <Mail size={16} className="text-[#ff3c00]" />
-                contact@promotionmedia.in
+                promotion.frames@gmail.com
               </a>
               <a
                 href="tel:+91XXXXXXXXXX"
