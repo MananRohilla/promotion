@@ -19,7 +19,7 @@ export default function ProjectsPage() {
         {/* Header */}
         <div className="mb-14">
           <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-4">
-            .our work
+            our work
           </p>
           <h1 className="text-5xl lg:text-7xl font-black text-black dark:text-white">Projects</h1>
         </div>

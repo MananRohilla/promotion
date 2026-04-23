@@ -31,7 +31,7 @@ export function BlogPreview() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-end justify-between mb-12">
           <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium">
-            .latest notes
+            latest notes
           </p>
           <Link
             href="/notes"

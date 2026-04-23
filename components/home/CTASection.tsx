@@ -14,7 +14,7 @@ export function CTASection() {
           transition={{ duration: 0.5 }}
           className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-8"
         >
-          .say hello
+          say hello
         </motion.p>
 
         <motion.h2

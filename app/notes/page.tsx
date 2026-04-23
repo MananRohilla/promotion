@@ -14,7 +14,7 @@ export default function NotesPage() {
           className="text-center py-32"
         >
           <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-6">
-            .notes & blog
+            notes & blog
           </p>
           <h1 className="text-6xl lg:text-8xl font-black text-black dark:text-white mb-8 leading-[1.05]">
             coming<br />soon.

@@ -50,7 +50,7 @@ export default function AboutPage() {
           className="py-20 border-b border-[#ddd] dark:border-[#222]"
         >
           <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-8">
-            .philosophy
+            philosophy
           </p>
           <p className="text-3xl lg:text-5xl font-light italic text-black dark:text-white leading-snug max-w-4xl">
             "Our craft is building experiences that bring value to people and celebrate function over form. We hide the ego and give freedom to creativity."
@@ -60,7 +60,7 @@ export default function AboutPage() {
         {/* Team */}
         <div className="py-20 border-b border-[#ddd] dark:border-[#222]">
           <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-12">
-            .the team
+            the team
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {team.map((member, i) => (
@@ -90,7 +90,7 @@ export default function AboutPage() {
         {/* Tools marquee */}
         <div className="py-20 border-b border-[#ddd] dark:border-[#222] overflow-hidden">
           <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-10">
-            .tools we use
+            tools we use
           </p>
           <div className="marquee-container flex">
             <div className="animate-marquee flex shrink-0 gap-6">

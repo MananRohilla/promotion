@@ -48,7 +48,7 @@ export default async function CaseStudyPage({
           {/* Description */}
           <div className="lg:col-span-2">
             <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-4">
-              .overview
+              overview
             </p>
             <p className="text-lg text-[#555] dark:text-[#888] leading-relaxed mb-16 font-light">
               {project.description}
@@ -56,7 +56,7 @@ export default async function CaseStudyPage({
 
             {/* Gallery */}
             <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-6">
-              .gallery
+              gallery
             </p>
             <div className="grid grid-cols-2 gap-4">
               {project.gallery.map((img, i) => (
@@ -76,7 +76,7 @@ export default async function CaseStudyPage({
           {/* Deliverables */}
           <div>
             <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-6">
-              .deliverables
+              deliverables
             </p>
             <ul className="flex flex-col gap-3">
               {project.deliverables.map((d, i) => (
@@ -102,7 +102,7 @@ export default async function CaseStudyPage({
         {next && (
           <div className="mt-24 pt-12 border-t border-[#ddd] dark:border-[#222]">
             <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium mb-4">
-              .next project
+              next project
             </p>
             <Link
               href={`/work/${next.slug}`}
