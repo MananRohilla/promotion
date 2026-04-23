@@ -11,6 +11,8 @@ const socials = [
   { href: 'https://instagram.com/promotionmedia', label: 'Instagram' },
   { href: 'https://linkedin.com/company/promotionmedia', label: 'LinkedIn' },
   { href: 'https://youtube.com/@promotionmedia', label: 'YouTube' },
+  { href: 'https://wa.me/919810455915', label: 'WhatsApp — +91 9810455915' },
+  { href: 'https://wa.me/918800376390', label: 'WhatsApp — +91 8800376390' },
 ]
 
 export function Footer() {

@@ -2,14 +2,26 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone } from 'lucide-react'
+import { Mail, Phone, MessageCircle } from 'lucide-react'
+
+const WA_NUMBERS = [
+  { display: '+91 9810455915', wa: '919810455915', tel: '+919810455915' },
+  { display: '+91 8800376390', wa: '918800376390', tel: '+918800376390' },
+]
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [sent, setSent] = useState(false)
+  const [waMsg, setWaMsg] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    const text = encodeURIComponent(
+      `Hi! I'm ${form.name} (${form.email}).\n\n${form.message}`
+    )
+    setWaMsg(text)
+    // Open primary number — browser allows one popup per user gesture
+    window.open(`https://wa.me/${WA_NUMBERS[0].wa}?text=${text}`, '_blank')
     setSent(true)
   }
 
@@ -41,13 +53,26 @@ export default function ContactPage() {
                 <Mail size={16} className="text-[#ff3c00]" />
                 promotion.frames@gmail.com
               </a>
-              <a
-                href="tel:+91XXXXXXXXXX"
-                className="flex items-center gap-3 text-sm text-[#555] dark:text-[#888] hover:text-[#ff3c00] transition-colors"
-              >
-                <Phone size={16} className="text-[#ff3c00]" />
-                +91-XXXXXXXXXX
-              </a>
+              {WA_NUMBERS.map(({ display, wa, tel }) => (
+                <div key={wa} className="flex items-center gap-4">
+                  <a
+                    href={`tel:${tel}`}
+                    className="flex items-center gap-3 text-sm text-[#555] dark:text-[#888] hover:text-[#ff3c00] transition-colors"
+                  >
+                    <Phone size={16} className="text-[#ff3c00]" />
+                    {display}
+                  </a>
+                  <a
+                    href={`https://wa.me/${wa}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs text-[#25D366] hover:text-[#128C7E] transition-colors font-medium"
+                  >
+                    <MessageCircle size={13} />
+                    WhatsApp
+                  </a>
+                </div>
+              ))}
             </div>
 
             <div className="flex flex-col gap-4">
@@ -90,7 +115,22 @@ export default function ContactPage() {
                   <span className="text-2xl">✓</span>
                 </div>
                 <h2 className="text-2xl font-black text-black dark:text-white mb-2">Message sent!</h2>
-                <p className="text-[#555] dark:text-[#888]">We'll get back to you within 24 hours.</p>
+                <p className="text-[#555] dark:text-[#888] mb-6">We'll get back to you within 24 hours.</p>
+                <p className="text-xs text-[#555] dark:text-[#888] mb-3 uppercase tracking-widest">Also reach us on WhatsApp</p>
+                <div className="flex flex-col gap-3 w-full max-w-xs">
+                  {WA_NUMBERS.map(({ display, wa }) => (
+                    <a
+                      key={wa}
+                      href={`https://wa.me/${wa}?text=${waMsg}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 py-3 px-6 rounded-full border border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all duration-200 text-sm font-medium"
+                    >
+                      <MessageCircle size={15} />
+                      {display}
+                    </a>
+                  ))}
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
