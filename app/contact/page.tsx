@@ -12,17 +12,26 @@ const WA_NUMBERS = [
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [sent, setSent] = useState(false)
-  const [waMsg, setWaMsg] = useState('')
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const text = encodeURIComponent(
-      `Hi! I'm ${form.name} (${form.email}).\n\n${form.message}`
-    )
-    setWaMsg(text)
-    // Open primary number — browser allows one popup per user gesture
-    window.open(`https://wa.me/${WA_NUMBERS[0].wa}?text=${text}`, '_blank')
-    setSent(true)
+    setSending(true)
+    setError('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error('Failed to send')
+      setSent(true)
+    } catch {
+      setError('Something went wrong. Please try again or reach us directly.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -75,6 +84,7 @@ export default function ContactPage() {
               ))}
             </div>
 
+            {/* Social links — temporarily hidden
             <div className="flex flex-col gap-4">
               <a
                 href="https://instagram.com/promotionmedia"
@@ -101,6 +111,7 @@ export default function ContactPage() {
                 YouTube — @promotionmedia
               </a>
             </div>
+            */}
           </motion.div>
 
           {/* Right — form */}
@@ -115,22 +126,7 @@ export default function ContactPage() {
                   <span className="text-2xl">✓</span>
                 </div>
                 <h2 className="text-2xl font-black text-black dark:text-white mb-2">Message sent!</h2>
-                <p className="text-[#555] dark:text-[#888] mb-6">We'll get back to you within 24 hours.</p>
-                <p className="text-xs text-[#555] dark:text-[#888] mb-3 uppercase tracking-widest">Also reach us on WhatsApp</p>
-                <div className="flex flex-col gap-3 w-full max-w-xs">
-                  {WA_NUMBERS.map(({ display, wa }) => (
-                    <a
-                      key={wa}
-                      href={`https://wa.me/${wa}?text=${waMsg}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 py-3 px-6 rounded-full border border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all duration-200 text-sm font-medium"
-                    >
-                      <MessageCircle size={15} />
-                      {display}
-                    </a>
-                  ))}
-                </div>
+                <p className="text-[#555] dark:text-[#888]">We'll get back to you within 24 hours.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -173,11 +169,15 @@ export default function ContactPage() {
                     className="w-full bg-transparent border-b border-[#ddd] dark:border-[#222] py-3 text-black dark:text-white placeholder-[#555] dark:placeholder-[#555] outline-none focus:border-[#ff3c00] transition-colors text-sm resize-none"
                   />
                 </div>
+                {error && (
+                  <p className="text-sm text-red-500">{error}</p>
+                )}
                 <button
                   type="submit"
-                  className="w-full py-4 bg-black dark:bg-white text-white dark:text-black font-bold rounded-full hover:bg-[#ff3c00] dark:hover:bg-[#ff3c00] dark:hover:text-white transition-all duration-200 text-sm mt-2"
+                  disabled={sending}
+                  className="w-full py-4 bg-black dark:bg-white text-white dark:text-black font-bold rounded-full hover:bg-[#ff3c00] dark:hover:bg-[#ff3c00] dark:hover:text-white transition-all duration-200 text-sm mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {sending ? 'Sending…' : 'Send Message'}
                 </button>
               </form>
             )}
