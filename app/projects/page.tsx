@@ -6,8 +6,8 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { projects } from '@/data/projects'
 
-type Filter = 'All' | 'Video' | 'Design' | 'Marketing'
-const filters: Filter[] = ['All', 'Video', 'Design', 'Marketing']
+type Filter = 'All' | 'Video' | 'Design'
+const filters: Filter[] = ['All', 'Video', 'Design']
 
 export default function ProjectsPage() {
   const [active, setActive] = useState<Filter>('All')
