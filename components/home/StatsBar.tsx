@@ -5,9 +5,8 @@ import { useInView } from 'framer-motion'
 
 const stats = [
   { value: 5, suffix: '+', label: 'Years of Experience' },
-  { value: 120, suffix: '+', label: 'Satisfied Clients' },
+  { value: 5, suffix: '+', label: 'Satisfied Clients' },
   { value: 300, suffix: '+', label: 'Campaigns Delivered' },
-  { value: 3, suffix: '', label: 'Countries of Operation' },
 ]
 
 function CountUp({ end, suffix }: { end: number; suffix: string }) {

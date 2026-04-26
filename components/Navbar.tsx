@@ -56,9 +56,9 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-sm transition-colors duration-200 relative ${
+                  className={`text-sm transition-colors duration-200 ${
                     isActive
-                      ? 'text-black dark:text-white font-semibold after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-black dark:after:bg-white after:rounded-full'
+                      ? 'text-black dark:text-white font-semibold'
                       : 'text-[#555] dark:text-[#888] hover:text-black dark:hover:text-white'
                   }`}
                 >
