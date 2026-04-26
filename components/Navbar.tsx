@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Sun, Moon, Menu, X } from 'lucide-react'
 import { useTheme } from '@/hooks/useTheme'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const navLinks = [
+  { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
@@ -14,6 +16,7 @@ const navLinks = [
 
 export function Navbar() {
   const { theme, toggle } = useTheme()
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -47,15 +50,22 @@ export function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-[#555] dark:text-[#888] hover:text-black dark:hover:text-white transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map(link => {
+              const isActive = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm transition-colors duration-200 relative ${
+                    isActive
+                      ? 'text-black dark:text-white font-semibold after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-black dark:after:bg-white after:rounded-full'
+                      : 'text-[#555] dark:text-[#888] hover:text-black dark:hover:text-white'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
             <button
               onClick={toggle}
               aria-label="Toggle theme"
@@ -96,22 +106,29 @@ export function Navbar() {
             transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
             className="fixed inset-0 z-40 bg-white dark:bg-black flex flex-col items-center justify-center gap-10"
           >
-            {navLinks.map((link, i) => (
-              <motion.div
-                key={link.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + i * 0.07 }}
-              >
-                <Link
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="text-4xl font-black text-black dark:text-white hover:text-[#ff3c00] transition-colors"
+            {navLinks.map((link, i) => {
+              const isActive = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)
+              return (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + i * 0.07 }}
                 >
-                  {link.label}
-                </Link>
-              </motion.div>
-            ))}
+                  <Link
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`text-4xl font-black transition-colors ${
+                      isActive
+                        ? 'text-[#ff3c00]'
+                        : 'text-black dark:text-white hover:text-[#ff3c00]'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              )
+            })}
           </motion.div>
         )}
       </AnimatePresence>

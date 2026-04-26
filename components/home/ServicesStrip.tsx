@@ -18,7 +18,7 @@ export function ServicesStrip() {
     <section className="py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 mb-8">
         <p className="text-xs text-[#555] dark:text-[#888] tracking-widest uppercase font-medium">
-          .what we do
+          what we do
         </p>
       </div>
 
