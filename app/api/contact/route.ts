@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from: 'ProMotion Website <onboarding@resend.dev>',
       to: RECIPIENTS,
-      reply_to: email,
+      replyTo: email,
       subject: `New enquiry from ${name}`,
       html: `
         <h2>New Contact Form Submission</h2>
