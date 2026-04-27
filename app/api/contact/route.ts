@@ -23,7 +23,6 @@ export async function POST(req: NextRequest) {
     console.error('[contact] CONTACT_EMAIL env var not set')
     return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 })
   }
-  const recipients = process.env.CONTACT_EMAIL_2 ? [to, process.env.CONTACT_EMAIL_2] : to
 
   const timestamp = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
@@ -35,13 +34,12 @@ export async function POST(req: NextRequest) {
   const safeEmail = escapeHtml(email)
   const safeMessage = escapeHtml(message)
 
-  try {
-    await resend.emails.send({
-      from: 'ProMotion Website <onboarding@resend.dev>',
-      to: recipients,
-      replyTo: email,
-      subject: `New Enquiry from ${name} — ProMotion Website`,
-      html: `
+  const { data, error } = await resend.emails.send({
+    from: 'ProMotion Website <onboarding@resend.dev>',
+    to,
+    replyTo: email,
+    subject: `New Enquiry from ${name} — ProMotion Website`,
+    html: `
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,12 +76,14 @@ export async function POST(req: NextRequest) {
   </div>
 </body>
 </html>
-      `,
-    })
+    `,
+  })
 
-    return NextResponse.json({ ok: true })
-  } catch (err) {
-    console.error('[contact] resend failed:', err)
-    return NextResponse.json({ error: 'Mail failed' }, { status: 500 })
+  if (error) {
+    console.error('[contact] resend error:', error)
+    return NextResponse.json({ error: error.message }, { status: 500 })
   }
+
+  console.log('[contact] sent, id:', data?.id)
+  return NextResponse.json({ ok: true })
 }
