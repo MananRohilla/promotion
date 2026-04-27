@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
     console.error('[contact] CONTACT_EMAIL env var not set')
     return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 })
   }
+  const recipients = process.env.CONTACT_EMAIL_2 ? [to, process.env.CONTACT_EMAIL_2] : to
 
   const timestamp = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
@@ -37,7 +38,7 @@ export async function POST(req: NextRequest) {
   try {
     await resend.emails.send({
       from: 'ProMotion Website <onboarding@resend.dev>',
-      to,
+      to: recipients,
       replyTo: email,
       subject: `New Enquiry from ${name} — ProMotion Website`,
       html: `
