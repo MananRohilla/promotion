@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 function escapeHtml(str: string) {
   return str
     .replace(/&/g, '&amp;')
@@ -34,6 +32,7 @@ export async function POST(req: NextRequest) {
   const safeEmail = escapeHtml(email)
   const safeMessage = escapeHtml(message)
 
+  const resend = new Resend(process.env.RESEND_API_KEY)
   const { data, error } = await resend.emails.send({
     from: 'ProMotion Website <onboarding@resend.dev>',
     to,
