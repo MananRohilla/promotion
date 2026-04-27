@@ -27,6 +27,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('theme');document.documentElement.classList.toggle('dark',t!=='light')}catch(e){}})()`,
           }}
+          suppressHydrationWarning
         />
       </head>
       <body className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-[family-name:var(--font-geist)] antialiased">
