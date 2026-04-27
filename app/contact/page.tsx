@@ -126,7 +126,7 @@ export default function ContactPage() {
                   <span className="text-2xl">✓</span>
                 </div>
                 <h2 className="text-2xl font-black text-black dark:text-white mb-2">Message sent!</h2>
-                <p className="text-[#555] dark:text-[#888]">We'll get back to you within 24 hours.</p>
+                <p className="text-[#555] dark:text-[#888]">Thanks! We'll be in touch soon.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
